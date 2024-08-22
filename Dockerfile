@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . /app
 RUN apt update -y && apt install awscli -y
 RUN apt-get update && pip install -r requirements.txt
-CMD ["streamlit","run","application.py"]
+CMD ["streamlit","run","app.py"]
