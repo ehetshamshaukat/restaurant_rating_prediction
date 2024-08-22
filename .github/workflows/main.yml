@@ -93,7 +93,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
-          docker rm -f restaurantsrating || true
+          docker rm -f restaurantrating || true
 
       - name: Run Docker Image to serve users
         env:
