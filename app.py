@@ -1,7 +1,7 @@
 import streamlit as st
 from src.pipeline.prediction_pipeline import Features, Prediction
 
-st.header("Restaurant Rating Prediction)
+st.header("Restaurant Rating Prediction")
 
 online_order_list = ["Yes", "No"]
 book_table_list = ["Yes", "No"]
