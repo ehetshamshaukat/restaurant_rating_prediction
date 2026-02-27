@@ -1,114 +1,115 @@
-# Project: Restaurant Rating
-## Problem statement
-### 1. Goal
-```
-To predict the rating of restaurant    
-```
-### 2. About 
-```
-To increase user satisfaction and visibility 
-```
-## Description
-### 1. Dataset
-```
-1. Unclean data
-1. Regression problem 
-2. Dataset available on kaggle 
+# 🍽️ Restaurant Rating Prediction: End-to-End MLOps Pipeline
+
+## 📌 Project Overview
+
+The **Restaurant Rating Prediction** system is a production-grade machine learning application designed to predict restaurant success metrics. By analyzing features such as **location, cost, cuisine type, and service availability**, the model generates data-driven predictions of restaurant ratings.
+
+Unlike traditional notebook-based projects, this repository demonstrates a **complete MLOps lifecycle**, including:
+
+- Modular architecture  
+- Automated preprocessing pipelines  
+- Multi-model benchmarking  
+- Model serialization  
+- Docker-based containerization  
+- CI/CD deployment to AWS  
+
+This project reflects industry-level engineering standards suitable for production environments.
+
+---
+
+## 🚀 Key Features
+
+### 🔹 Modular Architecture
+Decoupled components for:
+- Data Ingestion  
+- Data Transformation  
+- Model Training  
+- Prediction Pipeline  
+
+Ensures scalability, maintainability, and production readiness.
+
+---
+
+### 🔹 Automated Model Selection
+The training engine evaluates multiple algorithms, including:
+
+- AdaBoost Regressor  
+- Gradient Boosting Regressor  
+- Random Forest Regressor  
+- Linear Regression  
+
+The model with the highest **R² Score (Coefficient of Determination)** is automatically selected and persisted.
+
+---
+
+### 🔹 Robust Preprocessing Pipeline
+Built using **Scikit-Learn Pipelines** and **ColumnTransformer**:
+
+- **Missing Value Imputation**
+  - Median strategy (Numerical)
+  - Most Frequent strategy (Categorical)
+
+- **Feature Engineering**
+  - Ordinal Encoding
+  - Standard Scaling
+
+All transformations are serialized for consistent inference in production.
+
+---
+
+### 🔹 Interactive Web Interface
+Real-time predictions using a **Streamlit dashboard**.
+
+---
+
+### 🔹 Production-Ready Deployment
+- Docker containerization  
+- GitHub Actions CI/CD  
+- Deployment to AWS EC2  
+- Image storage in Amazon ECR  
+
+---
+
+## 📂 Project Structure
+
+```bash
+Restaurant_Rating_Prediction/
+├── .github/workflows/              # CI/CD Pipeline (AWS ECR → EC2)
+├── artifacts/                      # Processed data & serialized models
+├── dataset/                        # Raw dataset
+├── src/
+│   ├── components/
+│   │   ├── data_ingestion.py       # Train/Test split automation
+│   │   ├── data_transformation.py  # Pipeline-based preprocessing
+│   │   └── model_training.py       # Multi-model benchmarking
+│   ├── pipeline/
+│   │   └── prediction_pipeline.py  # Real-time inference logic
+│   └── utils.py                    # Helper utilities
+├── app.py                          # Streamlit application
+├── Dockerfile                      # Docker configuration
+├── requirements.txt                # Project dependencies
+└── setup.py                        # Package configuration
 ```
 
-### 2. Features
-``` 
-Input features = [online_order, book_table, votes, location, cost_for_two, type, city, restaurant_type, cuisines,
-                 number_of_cuisines_offered]
-Target feature = [rating]
-```
-### 3. Pipeline Structure
-```requirements
-Google define pipeline 
-```
-# Requirements
-### 1. Language
-```
-Python 3.10
-```
-### 2. Libraries
-```
-1. numpy
-2. pandas
-3. scikit-learn
-4. pickle
-5. os 
-6. streamlit 
- ```
-# code
-### 1. Enviroment
-```requirements
-conda create -p venv python==3.10 -y 
-```
-### 2. Activate enviroment
-```requirements
-conda activate venv/
-```
-### 3. Setup
-```
-The setup.py is a Python script typically included with Python-written libraries or apps. Its objective is to ensure that the program is installed correctly. 
-```
-### 4. Components
-- Data ingestion
-```
-reading data from different source and splitting data into train and test
-```
-- Data transformation
-```
-  reading train and test dataset and apply different transformation and save transformation setting in pickle format
-```
-- Model training
-```requirements
-transformed dataset and using different machine learning model and save the best model in pickle format
-```
-### 5. Pipeline
-- Training pipeline
-```
-using components and creating pipeline for model training
-```
-- Prediction pipeline
-```
-taking data from user transform for model and predict 
-```
+## 🏗️ The Engineering Pipelines📥 
+### 🔹  1. Data Ingestion Pipeline
+  1. The entry point of the system designed for data safety and reproducibility.Automated Splitting:
+  2.  Performs a 75/25 Train-Test split using a fixed random_state to ensure scientific repeatability.
+  3.  Artifact Management: Automatically generates a structured artifacts/ directory to decouple raw data from processed datasets.
+  4.  Trigger Mechanism: Serves as the first link in the chain, passing file paths directly to the transformation layer.
+### 🔹 2. Data Transformation Pipeline: (The Preprocessing Engine)
+- Ensures raw restaurant data is converted into a mathematically optimized format.
+- Numerical Stream: Handles missing values via Median Imputation and standardizes scales using StandardScaler.
+- Categorical Stream: Uses Frequent Imputation for missing text and Ordinal Encoding to transform labels into numerical features.
+- Serialization: Saves the fitted state into transformation.pkl to prevent Data Leakage and ensure consistent scaling during live inference.
+### 🔹  3. Model Training Pipeline (The Competition Engine)
+- A "Champion-Challenger" framework that finds the most accurate predictor.
+- Multi-Model Benchmarking: Evaluates a suite of algorithms including Linear Regression, Random Forest, AdaBoost, and Gradient Boosting.
+- Metric-Driven Selection: Automatically compares the $R^2$ Score of all models.
+- Model Persistence: Promotes the "Best Model" and serializes it as model.pkl for production use.
 
-## Run
-#### 1. Download repository
-```
-git clone https://github.com/ehetshamshaukat/restaurantrating.git
-```
-#### 2. create virtual enviroment
-```
-conda create -p venv python==version -y
-```
-#### 3. Install dependences
-```requirements
-pip install -r requirements.txt
-```
-#### 4. Transformation and training
-- data transformation and model training
-  ```
-  For model training, which will also save tranformation and model in pickle format
-  python src/pipeline/training_pipeline.py
-  ```
-- Prediction
-  ```
-  For Prediction on new data
-  python src/pipeline/prediction_pipeline.py
-  ```
-#### 5. Streamlit
-```
-to predict
-streamlit run application.py
-```
-## Deployment
-```
-Deploy on AWS using Github actions which is CI CD technique
-```
+
 ## Image
 <img width="1501" alt="Screenshot 2024-08-25 at 2 43 55 PM" src="https://github.com/user-attachments/assets/e1fc85cb-fa3e-4df7-8afd-a3c4679240c3">
+
 
